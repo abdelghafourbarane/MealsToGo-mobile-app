@@ -16,6 +16,7 @@ import {
 
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
+import Favourite from "../../../components/favourites/favourite.component";
 
 function RestaurantInfoCard({ restaurant = {} }) {
   const {
@@ -28,17 +29,24 @@ function RestaurantInfoCard({ restaurant = {} }) {
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily = true,
+    place_id = "some_place_id",
   } = restaurant;
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     <RestaurantCard elevation={5}>
+      <Favourite restaurant={restaurant} />
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Text variant="label">{name}</Text>
         <StateRow>
           <StarsGroup>
             {ratingArray.map((elem, index) => (
-              <SvgXml xml={star} width={20} height={20} key={index} />
+              <SvgXml
+                xml={star}
+                width={20}
+                height={20}
+                key={`star-${place_id}-${index}`}
+              />
             ))}
           </StarsGroup>
           <OpenGroup>
